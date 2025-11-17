@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+  <link rel="icon"">
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clicker Game Simulator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin-top: 30px;
+    }
+    #counter {
+      font-size: 2em;
+      margin: 20px;
+    }
+    button {
+      font-size: 1.2em;
+      padding: 15px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    button:active {
+      transform: scale(0.95);
+    }
+    #click-btn {
+      background: #4CAF50;
+      color: white;
+    }
+    #upgrade-btn {
+      background: #2196F3;
+      color: white;
+    }
+    #upgrade-btn:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h1>Clicker Game Simulator</h1>
+  <div id="counter">0</div>
+  <button id="click-btn">Click Button</button>
+  <br>
+  <button id="upgrade-btn">Buy Upgrade (Cost: 50)</button>
+
+  <script>
+    let score = 0;
+    let pointsPerClick = 1;
+    let upgradeCost = 50;
+
+    const counter = document.getElementById("counter");
+    const clickBtn = document.getElementById("click-btn");
+    const upgradeBtn = document.getElementById("upgrade-btn");
+
+    // Update score display
+    function updateDisplay() {
+      counter.textContent = score;
+      upgradeBtn.textContent = `Buy Upgrade (Cost: ${upgradeCost})`;
+      upgradeBtn.disabled = score < upgradeCost;
+    }
+
+    // Handle clicking
+    clickBtn.addEventListener("click", () => {
+      score += pointsPerClick;
+      updateDisplay();
+    });
+
+    // Handle upgrade purchase
+    upgradeBtn.addEventListener("click", () => {
+      if (score >= upgradeCost) {
+        score -= upgradeCost;
+        pointsPerClick++;
+        upgradeCost = Math.floor(upgradeCost * 1.5);
+        updateDisplay();
+      }
+    });
+
+    // Initialize display
+    updateDisplay();
+  </script>
+</body>
+</html>
